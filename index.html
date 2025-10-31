@@ -67,187 +67,103 @@
   </header>
 
   <main class="main">
-    <!-- Seccion de login -->
-    <section id="login" class="section light-background">
-      <div class="container" data-aos="fade-up">
-        <div class="section-title text-center">
-          <h2>Iniciar Sesión</h2>
-          <p><span>Accede a tu cuenta o</span> <span class="description-title">regístrate</span></p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-login"
-                  type="button" role="tab">Iniciar Sesión</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-register-tab" data-bs-toggle="pill" data-bs-target="#pills-register"
-                  type="button" role="tab">Registrarse</button>
-              </li>
-            </ul>
-
-            <!-- Tab contenido -->
-            <div class="tab-content" id="pills-tabContent">
-
-              <!-- Login Form -->
-              <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
-                <form id="login-form" class="php-email-form p-4 rounded shadow-sm" method="POST" action="#">
-                  <div class="form-group mb-3">
-                    <label for="loginEmail">Correo electrónico</label>
-                    <input type="email" class="form-control" id="loginEmail" name="correo"
-                      placeholder="Ingresa tu correo" required>
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="loginPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="loginPassword" name="contrasena"
-                      placeholder="Ingresa tu contraseña" required>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                  </div>
-                  <p class="text-center mt-3"><a href="#">¿Olvidaste tu contraseña?</a></p>
-                </form>
-              </div>
-
-              <!-- Form de registro-->
-              <div class="tab-pane fade" id="pills-register" role="tabpanel">
-                <form id="register-form" class="php-email-form p-4 rounded shadow-sm" method="POST" action="#">
-                  <div class="form-group mb-3">
-                    <label for="regNombre">Nombre completo</label>
-                    <input type="text" class="form-control" id="regNombre" name="nombre" placeholder="Ingresa tu nombre"
-                      required>
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="regCorreo">Correo electrónico</label>
-                    <input type="email" class="form-control" id="regCorreo" name="correo"
-                      placeholder="Ingresa tu correo" required>
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="regTelefono">Teléfono</label>
-                    <input type="tel" class="form-control" id="regTelefono" name="telefono"
-                      placeholder="Número de teléfono" required>
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="regContrasena">Contraseña</label>
-                    <input type="password" class="form-control" id="regContrasena" name="contrasena"
-                      placeholder="Crea una contraseña" required>
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="regRol">Rol</label>
-                    <select class="form-select" id="regRol" name="rol" required>
-                      <option value="">Selecciona un rol</option>
-                      <option value="cliente">Cliente</option>
-                      <option value="admin">Administrador</option>
-                    </select>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-                  </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
 
-    <!-- Home inicial -->
-    <section id="hero" class="hero section light-background">
+    <!-- Tab contenido -->
+    <div class="tab-content" id="pills-tabContent">
 
-      <div class="container">
-        <div class="row gy-4 justify-content-center justify-content-lg-between">
-          <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-            <h1 data-aos="fade-up">Disfruta con nosotros<br>El deporte es vida</h1>
-            <p data-aos="fade-up" data-aos-delay="100">Somos una plataforma digital diseñada para facilitar la reserva
-              de canchas de fútbol, conectando jugadores, equipos y centros deportivos de forma rápida, segura y
-              conveniente.
-            </p>
-            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a href="#book-a-table" class="btn-get-started">Reservar Cancha</a>
-            </div>
-          </div>
-          <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
-          </div>
-        </div>
-      </div>
+      <!-- Home inicial -->
+      <section id="hero" class="hero section light-background">
 
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Acerca de nosotros<br></h2>
-        <p><span>Aprende mas</span> <span class="description-title">Sobre Nosotros</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/about.png" class="img-fluid mb-4" alt="">
-            <div class="book-a-table">
-              <h3>Reservar Cancha</h3>
-              <p>+506 8554855</p>
-            </div>
-          </div>
-          <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
-            <div class="content ps-0 ps-lg-5">
-              <p class="fst-italic">
-                BIENVENIDOS Soccer Zone
+        <div class="container">
+          <div class="row gy-4 justify-content-center justify-content-lg-between">
+            <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
+              <h1 data-aos="fade-up">Disfruta con nosotros<br>El deporte es vida</h1>
+              <p data-aos="fade-up" data-aos-delay="100">Somos una plataforma digital diseñada para facilitar la reserva
+                de canchas de fútbol, conectando jugadores, equipos y centros deportivos de forma rápida, segura y
+                conveniente.
               </p>
-              <ul>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Reserva tu cancha en segundos, juega sin
-                    esperas</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Fútbol 5 al alcance de tu mano, donde quieras y cuando
-                    quieras</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Olvídate del papel, disfruta la cancha con un
-                    clic</span></li>
-              </ul>
-              <p>
-                En nuestro centro deportivo en Belén de Heredia, facilitamos
-                la reserva de canchas de fútbol 5 de manera rápida y segura a
-                través de nuestra plataforma web. Nuestro objetivo es ofrecer
-                una experiencia digital eficiente, evitando errores de reservas,
-                mejorando la comunicación con nuestros clientes y permitiendo
-                gestionar horarios desde cualquier lugar y en cualquier momento.
-                Creemos en la innovación y en brindar comodidad para que disfrutes
-                al máximo tu actividad deportiva.
-              </p>
-
-              <div class="position-relative mt-4">
-                <img src="assets/img/about-2.png" class="img-fluid" alt="">
-
+              <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                <a href="#book-a-table" class="btn-get-started">Reservar Cancha</a>
               </div>
+            </div>
+            <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+              <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
             </div>
           </div>
         </div>
 
-      </div>
+      </section><!-- /Hero Section -->
 
-    </section><!-- /About Section -->
+      <!-- About Section -->
+      <section id="about" class="about section">
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section light-background">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Acerca de nosotros<br></h2>
+          <p><span>Aprende mas</span> <span class="description-title">Sobre Nosotros</span></p>
+        </div><!-- End Section Title -->
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>REVIEWS</h2>
-        <p>Que Dicen <span class="description-title">Sobre Nosotros</span></p>
-      </div><!-- End Section Title -->
+        <div class="container">
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row gy-4">
+            <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+              <img src="assets/img/about.png" class="img-fluid mb-4" alt="">
+              <div class="book-a-table">
+                <h3>Reservar Cancha</h3>
+                <p>+506 8554855</p>
+              </div>
+            </div>
+            <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
+              <div class="content ps-0 ps-lg-5">
+                <p class="fst-italic">
+                  BIENVENIDOS Soccer Zone
+                </p>
+                <ul>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>Reserva tu cancha en segundos, juega sin
+                      esperas</span></li>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>Fútbol 5 al alcance de tu mano, donde quieras y
+                      cuando
+                      quieras</span></li>
+                  <li><i class="bi bi-check-circle-fill"></i> <span>Olvídate del papel, disfruta la cancha con un
+                      clic</span></li>
+                </ul>
+                <p>
+                  En nuestro centro deportivo en Belén de Heredia, facilitamos
+                  la reserva de canchas de fútbol 5 de manera rápida y segura a
+                  través de nuestra plataforma web. Nuestro objetivo es ofrecer
+                  una experiencia digital eficiente, evitando errores de reservas,
+                  mejorando la comunicación con nuestros clientes y permitiendo
+                  gestionar horarios desde cualquier lugar y en cualquier momento.
+                  Creemos en la innovación y en brindar comodidad para que disfrutes
+                  al máximo tu actividad deportiva.
+                </p>
 
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
+                <div class="position-relative mt-4">
+                  <img src="assets/img/about-2.png" class="img-fluid" alt="">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section><!-- /About Section -->
+
+      <!-- Testimonials Section -->
+      <section id="testimonials" class="testimonials section light-background">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>REVIEWS</h2>
+          <p>Que Dicen <span class="description-title">Sobre Nosotros</span></p>
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="swiper init-swiper">
+            <script type="application/json" class="swiper-config">
             {
               "loop": true,
               "speed": 600,
@@ -262,95 +178,95 @@
               }
             }
           </script>
-          <div class="swiper-wrapper">
+            <div class="swiper-wrapper">
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>¡Reservar mi cancha nunca fue tan fácil!
-                          Con solo unos clics tengo mi horario confirmado y
-                          puedo concentrarme en jugar.
-                          Me encanta la rapidez y la comodidad del sistema.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Saul Quiros</h3>
-                      <h4>Futbolista &amp; Feliz</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                          class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <div class="row gy-4 justify-content-center">
+                    <div class="col-lg-6">
+                      <div class="testimonial-content">
+                        <p>
+                          <i class="bi bi-quote quote-icon-left"></i>
+                          <span>¡Reservar mi cancha nunca fue tan fácil!
+                            Con solo unos clics tengo mi horario confirmado y
+                            puedo concentrarme en jugar.
+                            Me encanta la rapidez y la comodidad del sistema.</span>
+                          <i class="bi bi-quote quote-icon-right"></i>
+                        </p>
+                        <h3>Saul Quiros</h3>
+                        <h4>Futbolista &amp; Feliz</h4>
+                        <div class="stars">
+                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-1.png" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Disfruto mucho traer a mis hijos aca, pura vida!</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Sara Lopez</h3>
-                      <h4>Ama de casa</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                          class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
+                    <div class="col-lg-2 text-center">
+                      <img src="assets/img/testimonials/testimonials-1.png" class="img-fluid testimonial-img" alt="">
                     </div>
                   </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-2.png" class="img-fluid testimonial-img" alt="">
-                  </div>
                 </div>
-              </div>
-            </div><!-- End testimonial item -->
+              </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Me gusta poder reservar desde mi celular en cualquier momento.
-                          No más llamadas ni confusiones con los horarios.
-                          ¡Definitivamente hace que jugar sea mucho más divertido</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Luis F</h3>
-                      <h4>Entrenador</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                          class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <div class="row gy-4 justify-content-center">
+                    <div class="col-lg-6">
+                      <div class="testimonial-content">
+                        <p>
+                          <i class="bi bi-quote quote-icon-left"></i>
+                          <span>Disfruto mucho traer a mis hijos aca, pura vida!</span>
+                          <i class="bi bi-quote quote-icon-right"></i>
+                        </p>
+                        <h3>Sara Lopez</h3>
+                        <h4>Ama de casa</h4>
+                        <div class="stars">
+                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-3.png" class="img-fluid testimonial-img" alt="">
+                    <div class="col-lg-2 text-center">
+                      <img src="assets/img/testimonials/testimonials-2.png" class="img-fluid testimonial-img" alt="">
+                    </div>
                   </div>
                 </div>
-              </div>
+              </div><!-- End testimonial item -->
+
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <div class="row gy-4 justify-content-center">
+                    <div class="col-lg-6">
+                      <div class="testimonial-content">
+                        <p>
+                          <i class="bi bi-quote quote-icon-left"></i>
+                          <span>Me gusta poder reservar desde mi celular en cualquier momento.
+                            No más llamadas ni confusiones con los horarios.
+                            ¡Definitivamente hace que jugar sea mucho más divertido</span>
+                          <i class="bi bi-quote quote-icon-right"></i>
+                        </p>
+                        <h3>Luis F</h3>
+                        <h4>Entrenador</h4>
+                        <div class="stars">
+                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 text-center">
+                      <img src="assets/img/testimonials/testimonials-3.png" class="img-fluid testimonial-img" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End testimonial item -->
+
             </div><!-- End testimonial item -->
 
-          </div><!-- End testimonial item -->
-
+          </div>
+          <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-pagination"></div>
-      </div>
 
-      </div>
+    </div>
 
     </section><!-- /Testimonials Section -->
 
@@ -433,72 +349,72 @@
 
 
 
-<!-- Book A Table Section -->
-<section id="book-a-table" class="book-a-table section">
+    <!-- Book A Table Section -->
+    <section id="book-a-table" class="book-a-table section">
 
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Reservar Cancha</h2>
-    <p><span>Reserva</span> <span class="description-title">Con Nosotros<br></span></p>
-  </div><!-- End Section Title -->
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Reservar Cancha</h2>
+        <p><span>Reserva</span> <span class="description-title">Con Nosotros<br></span></p>
+      </div><!-- End Section Title -->
 
-  <div class="container">
+      <div class="container">
 
-    <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
 
-      <div class="col-lg-6 reservation-img" style="background-image: url(assets/img/reservation.png);"></div>
+          <div class="col-lg-6 reservation-img" style="background-image: url(assets/img/reservation.png);"></div>
 
-      <div class="col-lg-6 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
-        <form action="forms/reservar-cancha.php" method="post" role="form" class="php-email-form" id="formReserva">
-          <div class="row gy-4">
+          <div class="col-lg-6 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
+            <form action="forms/reservar-cancha.php" method="post" role="form" class="php-email-form" id="formReserva">
+              <div class="row gy-4">
 
-            <div class="col-md-6">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
-            </div>
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
+                </div>
 
-            <div class="col-md-6">
-              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
-            </div>
+                <div class="col-md-6">
+                  <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
+                </div>
 
-            <div class="col-md-6">
-              <input type="date" name="date" class="form-control" id="date" required>
-            </div>
+                <div class="col-md-6">
+                  <input type="date" name="date" class="form-control" id="date" required>
+                </div>
 
-            <div class="col-md-6">
-              <input type="time" class="form-control" name="time" id="time" required>
-            </div>
+                <div class="col-md-6">
+                  <input type="time" class="form-control" name="time" id="time" required>
+                </div>
 
-            <div class="col-md-12">
-              <select name="cancha" id="cancha" class="form-control" required>
-                <option value="">Selecciona la cancha</option>
-                <option value="A">Cancha A (Sintética)</option>
-                <option value="B">Cancha B (Techada)</option>
-                <option value="C">Cancha C (Exterior)</option>
-              </select>
-            </div>
+                <div class="col-md-12">
+                  <select name="cancha" id="cancha" class="form-control" required>
+                    <option value="">Selecciona la cancha</option>
+                    <option value="A">Cancha A (Sintética)</option>
+                    <option value="B">Cancha B (Techada)</option>
+                    <option value="C">Cancha C (Exterior)</option>
+                  </select>
+                </div>
 
-          </div>
+              </div>
 
-          <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="3" placeholder="Comentario opcional"></textarea>
-          </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="3" placeholder="Comentario opcional"></textarea>
+              </div>
 
-          <div class="text-center mt-3">
-            <div class="loading">Cargando</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Tu solicitud de reserva ha sido enviada.
-              Te llamaremos o enviaremos un correo electrónico para confirmar tu reserva. ¡Gracias!
-            </div>
-            <button type="submit">Reservar Cancha</button>
-          </div>
-        </form>
-      </div><!-- End Reservation Form -->
+              <div class="text-center mt-3">
+                <div class="loading">Cargando</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Tu solicitud de reserva ha sido enviada.
+                  Te llamaremos o enviaremos un correo electrónico para confirmar tu reserva. ¡Gracias!
+                </div>
+                <button type="submit">Reservar Cancha</button>
+              </div>
+            </form>
+          </div><!-- End Reservation Form -->
 
-    </div>
+        </div>
 
-  </div>
+      </div>
 
-</section><!-- /Book A Table Section -->
+    </section><!-- /Book A Table Section -->
 
 
 

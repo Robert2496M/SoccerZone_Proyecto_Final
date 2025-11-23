@@ -55,6 +55,7 @@
           <li><a href="#about">Acerca de</a></li>
           <li><a href="admin.html">Menu Admin</a></li>
           <li><a href="#events">Proximos Eventos</a></li>
+          <li><a href="#disponibilidad">Disponibilidad</a></li>
           <li><a href="#contact">Contacto</a></li>
           <!--    <li><a href="#login">Iniciar Sesión</a></li> -->
         </ul>
@@ -422,6 +423,64 @@
 
     </section><!-- /Book A Table Section -->
 
+
+
+    <!-- Disponibilidad Section -->
+<section id="disponibilidad" class="section light-background">
+
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Disponibilidad de Canchas</h2>
+    <p><span>Consulta</span> <span class="description-title">Horarios Disponibles</span></p>
+  </div>
+
+  <div class="container">
+
+    <div class="mb-3">
+      <label class="form-label">Selecciona la fecha:</label>
+      <input type="date" id="fecha" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary mb-4" onclick="consultarDisponibilidad()">Consultar Disponibilidad</button>
+
+    <div id="resultado" class="row"></div>
+
+  </div>
+
+</section>
+
+<script>
+  function consultarDisponibilidad() {
+    const fecha = document.getElementById("fecha").value;
+
+    fetch(`/api/disponibilidad?fecha=${fecha}`)
+      .then(res => res.json())
+      .then(data => {
+        const cont = document.getElementById("resultado");
+        cont.innerHTML = "";
+
+        data.forEach(c => {
+          cont.innerHTML += `
+          <div class="col-md-4">
+            <div class="card mb-3 ${c.disponible ? 'border-success' : 'border-danger'}">
+              <div class="card-body">
+                <h5 class="card-title">${c.nombre}</h5>
+                <p><b>Ubicación:</b> ${c.ubicacion}</p>
+                <p><b>Precio/hora:</b> ₡${c.precio_hora}</p>
+                <span class="badge ${c.disponible ? 'bg-success' : 'bg-danger'}">
+                  ${c.disponible ? 'Disponible' : 'Ocupada'}
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+        });
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("Error consultando la API");
+      });
+  }
+</script>
 
 
     <!-- Contact Section -->

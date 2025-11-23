@@ -11,7 +11,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname)); // sirve HTML, CSS y JS
+
 
 // ---------------------------------------------
 // REGISTRO DE USUARIO
@@ -60,7 +60,48 @@ app.post("/api/login", (req, res) => {
   });
 });
 
+// Consulta disponibilidad en tiempo real
+app.get("/api/disponibilidad", (req, res) => {
+    const { fecha } = req.query;
+
+    // Si no envían fecha, usar la de hoy
+    const fechaConsulta = fecha || new Date().toISOString().split("T")[0];
+
+    const sql = `
+        SELECT 
+            c.id_cancha,
+            c.nombre_cancha,
+            c.ubicacion,
+            c.precio_hora,
+            (
+                SELECT COUNT(*) 
+                FROM reservas r 
+                WHERE r.id_cancha = c.id_cancha
+                AND r.fecha = ?
+            ) AS reservas_del_dia
+        FROM canchas c
+        WHERE c.estado = 'activa'
+    `;
+
+    db.query(sql, [fechaConsulta], (err, resultados) => {
+        if (err) return res.status(500).json({ error: err });
+        
+        const respuesta = resultados.map(r => ({
+            id_cancha: r.id_cancha,
+            nombre: r.nombre_cancha,
+            ubicacion: r.ubicacion,
+            precio_hora: r.precio_hora,
+            disponible: r.reservas_del_dia == 0
+        }));
+
+        res.json(respuesta);
+    });
+});
+
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+app.use(express.static(__dirname)); // sirve HTML, CSS y JS

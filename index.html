@@ -400,6 +400,15 @@
                   </select>
                 </div>
 
+                <div class="col-md-12 mt-3">
+                  <select name="metodo_pago" id="metodo_pago" class="form-control" required>
+                    <option value="">Método de Pago</option>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="sinpe">SINPE</option>
+                  </select>
+                </div>
+
               </div>
 
               <div class="form-group mt-3">
@@ -449,38 +458,41 @@
 </section>
 
 <script>
-  function consultarDisponibilidad() {
+function consultarDisponibilidad() {
     const fecha = document.getElementById("fecha").value;
 
-    fetch(`/api/disponibilidad?fecha=${fecha}`)
-      .then(res => res.json())
-      .then(data => {
-        const cont = document.getElementById("resultado");
-        cont.innerHTML = "";
+    fetch("/api/disponibilidad?fecha=" + fecha)
+        .then(res => res.json())
+        .then(data => {
+            console.log("Respuesta API:", data);
 
-        data.forEach(c => {
-          cont.innerHTML += `
-          <div class="col-md-4">
-            <div class="card mb-3 ${c.disponible ? 'border-success' : 'border-danger'}">
-              <div class="card-body">
-                <h5 class="card-title">${c.nombre}</h5>
-                <p><b>Ubicación:</b> ${c.ubicacion}</p>
-                <p><b>Precio/hora:</b> ₡${c.precio_hora}</p>
-                <span class="badge ${c.disponible ? 'bg-success' : 'bg-danger'}">
-                  ${c.disponible ? 'Disponible' : 'Ocupada'}
-                </span>
-              </div>
-            </div>
-          </div>
-        `;
+            const cont = document.getElementById("resultado");
+            cont.innerHTML = "";
+
+            data.forEach(c => {
+                cont.innerHTML += `
+                    <div class="col-md-4">
+                        <div class="card mb-3 ${c.disponible ? 'border-success' : 'border-danger'}">
+                            <div class="card-body">
+                                <h5 class="card-title">${c.nombre}</h5>
+                                <p><b>Ubicación:</b> ${c.ubicacion}</p>
+                                <p><b>Precio/hora:</b> ₡${c.precio_hora}</p>
+                                <span class="badge ${c.disponible ? 'bg-success' : 'bg-danger'}">
+                                    ${c.disponible ? 'Disponible' : 'Ocupada'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        })
+        .catch(err => {
+            console.error("Error consultando la API", err);
+            alert("Error consultando la API");
         });
-      })
-      .catch(err => {
-        console.error("Error:", err);
-        alert("Error consultando la API");
-      });
-  }
+}
 </script>
+
 
 
     <!-- Contact Section -->

@@ -11,7 +11,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(express.static(__dirname)); // sirve HTML, CSS y JS
 
 // ---------------------------------------------
 // REGISTRO DE USUARIO
@@ -103,5 +103,3 @@ app.get("/api/disponibilidad", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-app.use(express.static(__dirname)); // sirve HTML, CSS y JS

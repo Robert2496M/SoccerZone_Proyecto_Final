@@ -56,6 +56,7 @@
           <li><a href="admin.html">Menu Admin</a></li>
           <li><a href="#events">Proximos Eventos</a></li>
           <li><a href="#disponibilidad">Disponibilidad</a></li>
+          <li><a href="#buscar-reservas">Lista de Reservas</a></li>
           <li><a href="#contact">Contacto</a></li>
           <!--    <li><a href="#login">Iniciar Sesión</a></li> -->
         </ul>
@@ -492,6 +493,46 @@ function consultarDisponibilidad() {
         });
 }
 </script>
+
+<!-- buscar-Reservas Section -->
+  <section id="buscar-reservas" class="Seccion reservas-section">
+
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Consultar Reservas</h2>
+    <p>
+      <span>Ingrese su nombre o teléfono</span>
+      <span class="description-title">para ver sus reservas</span>
+    </p>
+    <p class="text-muted">Use la barra de búsqueda para consultar rápidamente sus reservas registradas.</p>
+  </div>
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="search-bar-wrapper" style="max-width: 600px; margin: 0 auto;">
+
+      <div class="input-group">
+        <input 
+          id="busquedaReservas"
+          type="text" 
+          class="form-control" 
+          placeholder="Nombre o teléfono..."
+          style="height: 50px; font-size: 18px;"
+        >
+        
+        <button 
+          id="btnBuscarReserva" 
+          class="btn btn-primary"
+          style="padding: 0 25px;"
+        >
+          Buscar
+        </button>
+      </div>
+
+      <div id="resultadoReservas" class="mt-4"></div>
+
+    </div>
+  </div>
+
+</section>
 
 
 

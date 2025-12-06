@@ -136,3 +136,6 @@ VALUES
 (2, 'Tu reserva del 25 de octubre ha sido confirmada.'),
 (3, 'Recuerda completar el pago de tu reserva.'),
 (4, '¡Gracias por usar SoccerZone!');
+
+
+SELECT id_cancha, nombre_cancha FROM canchas;

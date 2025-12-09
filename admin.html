@@ -125,6 +125,21 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
 
+<script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if (!usuario) {
+        window.location.href = "login.html";
+    }
+
+    if (usuario.rol !== "admin") {
+        alert("Acceso denegado. Solo administradores pueden ingresar.");
+        window.location.href = "index.html";
+    }
+</script>
+
+
+
 </body>
 
 </html>

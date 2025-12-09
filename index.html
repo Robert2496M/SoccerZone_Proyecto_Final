@@ -40,6 +40,7 @@
 
 <body class="index-page">
 
+
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container position-relative d-flex align-items-center justify-content-between">
 
@@ -53,7 +54,10 @@
         <ul>
           <li><a href="#hero" class="active">Inicio<br></a></li>
           <li><a href="#about">Acerca de</a></li>
-          <li><a href="admin.html">Menu Admin</a></li>
+          <!--   <li><a href="admin.html">Menu Admin</a></li> -->
+          <li class="nav-item" id="tab-admin">
+            <a class="nav-link" href="admin.html">Menu Admin</a>
+          </li>
           <li><a href="#events">Proximos Eventos</a></li>
           <li><a href="#disponibilidad">Disponibilidad</a></li>
           <li><a href="#buscar-reservas">Lista de Reservas</a></li>
@@ -62,8 +66,11 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
       <a class="btn-getstarted" href="index.html#Reserva">Reservar Cancha</a>
+
+      <button id="logoutBtn" class="btn btn-primary ms-3">
+        Cerrar Sesión
+      </button>
 
     </div>
   </header>
@@ -359,11 +366,11 @@
         <h2>Reservar Cancha</h2>
         <p><span>Reserva</span> <span class="description-title">Con Nosotros<br></span></p>
 
-        
-      <h3 class="mt-4">Política de cancelación de cancha</h3>
-      <p class="text-muted mb-0">Si necesitas cancelar o mover tu reserva debes avisar con 3-4 horas de antelacion.
-        En caso de lluvia o imprevistos podremos cancelar o mover la reserva sin costo adicional.
-      </p>
+
+        <h3 class="mt-4">Política de cancelación de cancha</h3>
+        <p class="text-muted mb-0">Si necesitas cancelar o mover tu reserva debes avisar con 3-4 horas de antelacion.
+          En caso de lluvia o imprevistos podremos cancelar o mover la reserva sin costo adicional.
+        </p>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -436,42 +443,42 @@
 
 
     <!-- Disponibilidad Section -->
-<section id="disponibilidad" class="section light-background">
+    <section id="disponibilidad" class="section light-background">
 
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Disponibilidad de Canchas</h2>
-    <p><span>Consulta</span> <span class="description-title">Horarios Disponibles</span></p>
-  </div>
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Disponibilidad de Canchas</h2>
+        <p><span>Consulta</span> <span class="description-title">Horarios Disponibles</span></p>
+      </div>
 
-  <div class="container">
+      <div class="container">
 
-    <div class="mb-3">
-      <label class="form-label">Selecciona la fecha:</label>
-      <input type="date" id="fecha" class="form-control" />
-    </div>
+        <div class="mb-3">
+          <label class="form-label">Selecciona la fecha:</label>
+          <input type="date" id="fecha" class="form-control" />
+        </div>
 
-    <button class="btn btn-primary mb-4" onclick="consultarDisponibilidad()">Consultar Disponibilidad</button>
+        <button class="btn btn-primary mb-4" onclick="consultarDisponibilidad()">Consultar Disponibilidad</button>
 
-    <div id="resultado" class="row"></div>
+        <div id="resultado" class="row"></div>
 
-  </div>
+      </div>
 
-</section>
+    </section>
 
-<script>
-function consultarDisponibilidad() {
-    const fecha = document.getElementById("fecha").value;
+    <script>
+      function consultarDisponibilidad() {
+        const fecha = document.getElementById("fecha").value;
 
-    fetch("/api/disponibilidad?fecha=" + fecha)
-        .then(res => res.json())
-        .then(data => {
+        fetch("/api/disponibilidad?fecha=" + fecha)
+          .then(res => res.json())
+          .then(data => {
             console.log("Respuesta API:", data);
 
             const cont = document.getElementById("resultado");
             cont.innerHTML = "";
 
             data.forEach(c => {
-                cont.innerHTML += `
+              cont.innerHTML += `
                     <div class="col-md-4">
                         <div class="card mb-3 ${c.disponible ? 'border-success' : 'border-danger'}">
                             <div class="card-body">
@@ -486,53 +493,44 @@ function consultarDisponibilidad() {
                     </div>
                 `;
             });
-        })
-        .catch(err => {
+          })
+          .catch(err => {
             console.error("Error consultando la API", err);
             alert("Error consultando la API");
-        });
-}
-</script>
+          });
+      }
+    </script>
 
-<!-- buscar-Reservas Section -->
-  <section id="buscar-reservas" class="Seccion reservas-section">
+    <!-- buscar-Reservas Section -->
+    <section id="buscar-reservas" class="Seccion reservas-section">
 
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Consultar Reservas</h2>
-    <p>
-      <span>Ingrese su nombre o teléfono</span>
-      <span class="description-title">para ver sus reservas</span>
-    </p>
-    <p class="text-muted">Use la barra de búsqueda para consultar rápidamente sus reservas registradas.</p>
-  </div>
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-    <div class="search-bar-wrapper" style="max-width: 600px; margin: 0 auto;">
-
-      <div class="input-group">
-        <input 
-          id="busquedaReservas"
-          type="text" 
-          class="form-control" 
-          placeholder="Nombre o teléfono..."
-          style="height: 50px; font-size: 18px;"
-        >
-        
-        <button 
-          id="btnBuscarReserva" 
-          class="btn btn-primary"
-          style="padding: 0 25px;"
-        >
-          Buscar
-        </button>
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Consultar Reservas</h2>
+        <p>
+          <span>Ingrese su nombre o teléfono</span>
+          <span class="description-title">para ver sus reservas</span>
+        </p>
+        <p class="text-muted">Use la barra de búsqueda para consultar rápidamente sus reservas registradas.</p>
       </div>
 
-      <div id="resultadoReservas" class="mt-4"></div>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="search-bar-wrapper" style="max-width: 600px; margin: 0 auto;">
 
-    </div>
-  </div>
+          <div class="input-group">
+            <input id="busquedaReservas" type="text" class="form-control" placeholder="Nombre o teléfono..."
+              style="height: 50px; font-size: 18px;">
 
-</section>
+            <button id="btnBuscarReserva" class="btn btn-primary" style="padding: 0 25px;">
+              Buscar
+            </button>
+          </div>
+
+          <div id="resultadoReservas" class="mt-4"></div>
+
+        </div>
+      </div>
+
+    </section>
 
 
 
@@ -714,6 +712,32 @@ function consultarDisponibilidad() {
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    // Si NO hay usuario - enviar al login
+    if (!usuario) {
+      window.location.href = "login.html";
+    }
+
+    // Si es cliente - ocultar tab admin
+    if (usuario.rol !== "admin") {
+      const adminTab = document.getElementById("tab-admin");
+      if (adminTab) adminTab.style.display = "none";
+    }
+  </script>
+
+  <script>
+    // Botón para cerrar sesión
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      localStorage.removeItem("usuario"); // borrar login
+      window.location.href = "login.html"; // redirigir
+    });
+  </script>
+
+
 
 </body>
 

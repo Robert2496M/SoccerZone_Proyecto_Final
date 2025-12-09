@@ -1,105 +1,82 @@
-// server.js
+// Importa Express para crear el servidor
 const express = require("express");
-const bodyParser = require("body-parser");
+
+// Importa mysql2 con soporte para promesas
+const mysql = require("mysql2/promise");
+
+// Permite solicitudes desde otros dominios (ej: frontend)
 const cors = require("cors");
-const db = require("./db"); // usamos CommonJS aquí
 
-const app = express();
-const PORT = 3000;
+// Módulo para manejar rutas de archivos
+const path = require("path");
 
-// Middleware
+const app = express(); // Inicializa la app de Express
+
+// Middleware para permitir peticiones externas (CORS)
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname)); // sirve HTML, CSS y JS
 
-// ---------------------------------------------
-// REGISTRO DE USUARIO
-// ---------------------------------------------
-app.post("/api/register", (req, res) => {
-  const { nombre, correo, telefono, contrasena, rol } = req.body;
+// Middleware para leer JSON enviado por el cliente
+app.use(express.json());
 
-  const query = `
-    INSERT INTO usuarios (nombre, correo, telefono, contrasena, rol)
-    VALUES (?, ?, ?, ?, ?)
-  `;
+// Servir archivos estáticos desde la carpeta "public"
+app.use(express.static("public"));
 
-  db.query(query, [nombre, correo, telefono, contrasena, rol], (err, result) => {
-    if (err) {
-      console.error("Error al registrar usuario:", err);
-      return res.status(500).json({ message: "Error en el registro" });
-    }
-    res.json({ message: "Usuario registrado correctamente" });
-  });
+
+// =======================================================
+//              CONFIGURACIÓN CONEXIÓN A MySQL
+// =======================================================
+
+// Se crea un pool de conexiones para manejar múltiples peticiones
+const db = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "admin",
+  database: "db_soccerzone"
 });
 
-// ---------------------------------------------
-// LOGIN DE USUARIO
-// ---------------------------------------------
-app.post("/api/login", (req, res) => {
-  const { correo, contrasena } = req.body;
+// =======================================================                  
+//                     login
+// =======================================================
 
+
+app.post("/api/login", (req, res) => {
+  const { correo, contrasena } = req.body; // Datos enviados por el frontend
+
+  // Consulta SQL para validar usuario
   const query = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
 
+  // Ejecuta consulta SQL
   db.query(query, [correo, contrasena], (err, results) => {
     if (err) {
       console.error("Error al iniciar sesión:", err);
       return res.status(500).json({ message: "Error interno" });
     }
 
+    // Si no encuentra usuario
     if (results.length === 0) {
       return res.status(401).json({ message: "Correo o contraseña incorrectos" });
     }
 
     const usuario = results[0];
+
+    // Respuesta enviada al frontend
     res.json({
       message: "Inicio de sesión exitoso",
+      id_usuario: usuario.id_usuario,
       rol: usuario.rol,
-      nombre: usuario.nombre,
+      nombre: usuario.nombre
     });
   });
 });
 
-// Consulta disponibilidad en tiempo real
-app.get("/api/disponibilidad", (req, res) => {
-    const { fecha } = req.query;
 
-    // Si no envían fecha, usar la de hoy
-    const fechaConsulta = fecha || new Date().toISOString().split("T")[0];
+// =======================================================
+//                INICIAR SERVIDOR
+// =======================================================
 
-    const sql = `
-        SELECT 
-            c.id_cancha,
-            c.nombre_cancha,
-            c.ubicacion,
-            c.precio_hora,
-            (
-                SELECT COUNT(*) 
-                FROM reservas r 
-                WHERE r.id_cancha = c.id_cancha
-                AND r.fecha = ?
-            ) AS reservas_del_dia
-        FROM canchas c
-        WHERE c.estado = 'activa'
-    `;
+const PORT = 3000;
 
-    db.query(sql, [fechaConsulta], (err, resultados) => {
-        if (err) return res.status(500).json({ error: err });
-        
-        const respuesta = resultados.map(r => ({
-            id_cancha: r.id_cancha,
-            nombre: r.nombre_cancha,
-            ubicacion: r.ubicacion,
-            precio_hora: r.precio_hora,
-            disponible: r.reservas_del_dia == 0
-        }));
-
-        res.json(respuesta);
-    });
-});
-
-
-// Iniciar servidor
+// Inicia el servidor en http://localhost:3000
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log("Servidor corriendo en http://localhost:" + PORT);
 });

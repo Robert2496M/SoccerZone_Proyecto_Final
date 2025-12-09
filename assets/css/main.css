@@ -1654,3 +1654,28 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+/*--------------------------------------------------------------
+# PARA LOGIN CSS
+--------------------------------------------------------------*/
+
+/* Mensaje de login */
+.login-message {
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-top: 15px;
+  font-weight: 500;
+  display: none; /* Oculto por default */
+}
+
+/* Mensaje de éxito */
+.login-message.success {
+  background-color: var(--accent-color); /* rojo Yummy */
+  color: var(--contrast-color); /* blanco */
+}
+
+/* Mensaje de error */
+.login-message.error {
+  background-color: #df1529; /* el mismo rojo de error de Yummy */
+  color: white;
+}

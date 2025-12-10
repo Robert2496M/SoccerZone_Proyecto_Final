@@ -70,6 +70,43 @@ app.post("/api/login", (req, res) => {
 });
 
 
+// =======================================================                  
+//                   Reservar cancha
+// =======================================================
+
+
+//app.post("/api/reservas", (req, res) => {
+//  const{
+//    id_usuario,
+//    id_cancha,
+//    fecha,
+//    hora_inicio,
+//    metodo_pago,
+//  } = req.body;
+
+
+//Validamos los datos del formulario
+
+//if (!id_usuario || !id_cancha || !fecha || !hora_inicio || !metodo_pago){
+//  return res
+//  .status(400)
+//  .json({success: false, message: "Formulario imcompleto, por favor rellene todos los espacios"});
+//}
+
+//Calculamos las horas de la reserva
+
+
+
+//}
+
+
+
+
+
+
+
+
+
 // =======================================================
 //                INICIAR SERVIDOR
 // =======================================================

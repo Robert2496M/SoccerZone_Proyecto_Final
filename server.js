@@ -74,34 +74,87 @@ app.post("/api/login", (req, res) => {
 //                   Reservar cancha
 // =======================================================
 
+app.post("/api/reservas", (req, res) => {
+  const {
+    id_usuario,
+    id_cancha,
+    fecha,
+    hora_inicio,
+    metodo_pago,
+  } = req.body;
 
-//app.post("/api/reservas", (req, res) => {
-//  const{
-//    id_usuario,
-//    id_cancha,
-//    fecha,
-//    hora_inicio,
-//    metodo_pago,
-//  } = req.body;
+  // Validamos los datos del formulario
+  if (!id_usuario || !id_cancha || !fecha || !hora_inicio || !metodo_pago) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Formulario incompleto, por favor rellene todos los espacios" });
+  }
 
+  // Calculamos la hora fin (1 hora después)
 
-//Validamos los datos del formulario
+  let [h, m] = hora_inicio.split(":").map(Number);
+  const date = new Date(0, 0, 0, h, m || 0);
+  date.setHours(date.getHours() + 1);
+  const hora_fin = date.toTimeString().slice(0, 5);
 
-//if (!id_usuario || !id_cancha || !fecha || !hora_inicio || !metodo_pago){
-//  return res
-//  .status(400)
-//  .json({success: false, message: "Formulario imcompleto, por favor rellene todos los espacios"});
-//}
+  // Consultamos si ya hay reserva para la misma cancha, fecha y hora
 
-//Calculamos las horas de la reserva
+  const sqlCheck = `
+    SELECT COUNT(*) AS total
+    FROM reservas
+    WHERE id_cancha = ? AND fecha = ? AND hora_inicio = ?
+  `;
 
+  db.query(sqlCheck, [id_cancha, fecha, hora_inicio], (err, rows) => {
+    if (err) {
+      console.error("No se pudo verificar la reserva:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Error al verificar reserva" });
+    }
 
+    const total = rows[0].total;
 
-//}
+    if (total > 0) {
+      return res.status(409).json({
+        success: false,
+        message: "Lo sentimos, la cancha no está disponible para su reserva.",
+      });
+    }
 
+    // Insertamos la nueva reserva (solo si está libre)
 
+    const sqlInsert = `
+      INSERT INTO reservas
+      (id_usuario, id_cancha, fecha, hora_inicio, hora_fin, estado, metodo_pago, estado_pago)
+      VALUES (?, ?, ?, ?, ?, 'pendiente', ?, 'pendiente')
+    `;
 
+    const params = [
+      id_usuario,
+      id_cancha,
+      fecha,
+      hora_inicio,
+      hora_fin,
+      metodo_pago,
+    ];
 
+    db.query(sqlInsert, params, (err2, result) => {
+      if (err2) {
+        console.error("Error al insertar la reserva:", err2);
+        return res
+          .status(500)
+          .json({ success: false, message: "Error al guardar la reserva" });
+      }
+
+      return res.status(201).json({
+        success: true,
+        message: "Gracias por su reserva. Recuerda pagar antes del inicio del partido.",
+        id_reserva: result.insertId,
+      });
+    });
+  });
+});
 
 
 

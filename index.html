@@ -54,8 +54,10 @@
         <ul>
           <li><a href="#hero" class="active">Inicio<br></a></li>
           <li><a href="#about">Acerca de</a></li>
-          <li><a href="admin.html">Menu Admin</a></li> 
-       <!--   <li class="nav-item" id="tab-admin">
+          <!--   <li><a href="admin.html">Menu Admin</a></li>  -->
+          <a id="adminMenu" href="admin.html" class="btn btn-warning">Menu Admin</a> <!-- AGREGUE ESTE PARA OCULTAR ADMIN -->
+
+          <!--   <li class="nav-item" id="tab-admin">
             <a class="nav-link" href="admin.html">Menu Admin</a>
           </li> -->
           <li><a href="#events">Proximos Eventos</a></li>
@@ -713,21 +715,23 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <!--  NUEVO SCRIPT PARA OCULTAR ADMIN-->
 
-  <!-- <script>
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const rol = localStorage.getItem("rol");
+      const adminMenu = document.getElementById("adminMenu");
 
-    // Si NO hay usuario - enviar al login
-    if (!usuario) {
-      window.location.href = "login.html";
-    }
+      if (adminMenu) {
+        if (rol === "admin") {
+          adminMenu.style.display = "block";
+        } else {
+          adminMenu.style.display = "none";
+        }
+      }
+    });
+  </script>
 
-    // Si es cliente - ocultar tab admin
-    if (usuario.rol !== "admin") {
-      const adminTab = document.getElementById("tab-admin");
-      if (adminTab) adminTab.style.display = "none";
-    }
-  </script> -->
 
   <script>
     // Botón para cerrar sesión

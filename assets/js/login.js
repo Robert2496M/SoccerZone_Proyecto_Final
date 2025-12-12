@@ -36,6 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await res.json();
 
         if (res.ok) {
+
+          // Guardar rol del usuario
+          localStorage.setItem("rol", data.rol);
+
           showMessage(loginMsg, `Bienvenido ${data.nombre}`, "success");
 
           setTimeout(() => {

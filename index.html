@@ -360,87 +360,84 @@
 
 
 
-    <!-- Reservas -->
-    <section id="Reserva" class="Seccion reserva">
+<!-- Reservas -->
+<section id="Reserva" class="Seccion reserva">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Reservar Cancha</h2>
-        <p><span>Reserva</span> <span class="description-title">Con Nosotros<br></span></p>
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Reservar Cancha</h2>
+    <p><span>Reserva</span> <span class="description-title">Con Nosotros<br></span></p>
 
+    <h3 class="mt-4">Política de cancelación de cancha</h3>
+    <p class="text-muted mb-0">Si necesitas cancelar o mover tu reserva debes avisar con 3-4 horas de antelacion.
+      En caso de lluvia o imprevistos podremos cancelar o mover la reserva sin costo adicional.
+    </p>
+  </div><!-- End Section Title -->
 
-        <h3 class="mt-4">Política de cancelación de cancha</h3>
-        <p class="text-muted mb-0">Si necesitas cancelar o mover tu reserva debes avisar con 3-4 horas de antelacion.
-          En caso de lluvia o imprevistos podremos cancelar o mover la reserva sin costo adicional.
-        </p>
-      </div><!-- End Section Title -->
+  <div class="container">
+    <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
 
-      <div class="container">
+      <div class="col-lg-6 reservation-img" style="background-image: url(assets/img/reservation.png);
+      background-size: contain; background-repeat: no-repeat; background-position: center; height: 350px;"></div>
 
-        <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-lg-6 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
+        <form id="formReserva">
+          <div class="row gy-4">
 
-          <div class="col-lg-6 reservation-img" style="background-image: url(assets/img/reservation.png);
-          background-size: contain; background-repeat: no-repeat; background-position: center; height: 350px;"></div>
+            <div class="col-md-6">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
+            </div>
 
-          <div class="col-lg-6 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
-            <form action="forms/reservar-cancha.php" method="post" role="form" class="php-email-form" id="formReserva">
-              <div class="row gy-4">
+            <div class="col-md-6">
+              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
+            </div>
 
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" required>
-                </div>
+            <div class="col-md-6">
+              <input type="date" name="date" class="form-control" id="date" required>
+            </div>
 
-                <div class="col-md-6">
-                  <input type="tel" class="form-control" name="phone" id="phone" placeholder="Tu Teléfono" required>
-                </div>
+            <div class="col-md-6">
+              <input type="time" class="form-control" name="time" id="time" required>
+            </div>
 
-                <div class="col-md-6">
-                  <input type="date" name="date" class="form-control" id="date" required>
-                </div>
+            <div class="col-md-12">
+              <select name="id_cancha" id="cancha" class="form-control" required>
+                <option value="">Selecciona la cancha</option>
+                <option value="1">Cancha Central</option>
+                <option value="2">Cancha Norte</option>
+                <option value="3">Cancha Sur</option>
+              </select>
+            </div>
 
-                <div class="col-md-6">
-                  <input type="time" class="form-control" name="time" id="time" required>
-                </div>
+            <div class="col-md-12 mt-3">
+              <select name="metodo_pago" id="metodo_pago" class="form-control" required>
+                <option value="">Método de Pago</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="sinpe">SINPE</option>
+              </select>
+            </div>
 
-                <div class="col-md-12">
-                  <select name="id_cancha" id="cancha" class="form-control" required>
-                    <option value="">Selecciona la cancha</option>
-                    <option value="1">Cancha Central</option>
-                    <option value="2">Cancha Norte</option>
-                    <option value="3">Cancha Sur</option>
-                  </select>
-                </div>
+          </div>
 
-                <div class="col-md-12 mt-3">
-                  <select name="metodo_pago" id="metodo_pago" class="form-control" required>
-                    <option value="">Método de Pago</option>
-                    <option value="efectivo">Efectivo</option>
-                    <option value="sinpe">SINPE</option>
-                  </select>
-                </div>
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" rows="3" placeholder="Comentario opcional"></textarea>
+          </div>
 
-              </div>
+          <div class="text-center mt-3">
+            <div class="loading" id="loadingMsg" style="display:none;">Cargando</div>
+            <div class="error-message" id="errorMsg" style="display:none;"></div>
+            <div class="sent-message" id="successMsg" style="display:none;">Tu solicitud de reserva ha sido enviada.
+              Te llamaremos o enviaremos un correo electrónico para confirmar tu reserva. ¡Gracias!
+            </div>
+            <button type="submit">Reservar Cancha</button>
+          </div>
+        </form>
+      </div><!-- End Reservation Form -->
 
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="3" placeholder="Comentario opcional"></textarea>
-              </div>
+    </div>
+  </div>
 
-              <div class="text-center mt-3">
-                <div class="loading">Cargando</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Tu solicitud de reserva ha sido enviada.
-                  Te llamaremos o enviaremos un correo electrónico para confirmar tu reserva. ¡Gracias!
-                </div>
-                <button type="submit">Reservar Cancha</button>
-              </div>
-            </form>
-          </div><!-- End Reservation Form -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Book A Table Section -->
+</section><!-- /Book A Table Section -->
 
 
 
@@ -740,6 +737,17 @@
       window.location.href = "login.html"; // redirigir
     });
   </script>
+
+<script>
+  document.getElementById("formReserva").addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("successMsg").style.display = "block";
+  });
+</script>
+
+</body>
+</html>
+
 
 
 

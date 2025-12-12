@@ -739,11 +739,56 @@
   </script>
 
 <script>
-  document.getElementById("formReserva").addEventListener("submit", function (e) {
+  document.getElementById("formReserva").addEventListener("submit", async function (e) {
     e.preventDefault();
-    document.getElementById("successMsg").style.display = "block";
+
+    const successMsg = document.getElementById("successMsg");
+    const errorMsg = document.getElementById("errorMsg");
+    const loadingMsg = document.getElementById("loadingMsg");
+
+    // Reset mensajes
+    if (successMsg) successMsg.style.display = "none";
+    if (errorMsg) { errorMsg.style.display = "none"; errorMsg.textContent = ""; }
+    if (loadingMsg) loadingMsg.style.display = "block";
+
+    const data = {
+      id_usuario: 1,
+      id_cancha: Number(document.getElementById("cancha").value),
+      fecha: document.getElementById("date").value,
+      hora_inicio: document.getElementById("time").value,
+      metodo_pago: document.getElementById("metodo_pago").value
+    };
+
+    try {
+      const resp = await fetch("http://localhost:3000/api/reservas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const json = await resp.json();
+      if (loadingMsg) loadingMsg.style.display = "none";
+
+      if (resp.ok && json.success) {
+        if (successMsg) successMsg.style.display = "block";
+        document.getElementById("formReserva").reset();
+      } else {
+        if (errorMsg) {
+          errorMsg.textContent = json.message || "No se pudo reservar.";
+          errorMsg.style.display = "block";
+        }
+      }
+    } catch (err) {
+      if (loadingMsg) loadingMsg.style.display = "none";
+      if (errorMsg) {
+        errorMsg.textContent = "No se pudo conectar con el servidor.";
+        errorMsg.style.display = "block";
+      }
+    }
   });
 </script>
+
+
 
 </body>
 </html>

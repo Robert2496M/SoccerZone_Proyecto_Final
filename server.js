@@ -66,6 +66,7 @@ app.post("/api/login", (req, res) => {
 // =======================================================
 
 app.post("/api/reservas", (req, res) => {
+  console.log("RESERVA RECIBIDA:", req.body);
   const {
     id_usuario,
     id_cancha,

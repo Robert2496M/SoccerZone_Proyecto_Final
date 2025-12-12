@@ -1,70 +1,61 @@
-// Importa Express para crear el servidor
+// server.js
 const express = require("express");
-
-// Importa mysql2 con soporte para promesas
-const mysql = require("mysql2/promise");
-
-// Permite solicitudes desde otros dominios (ej: frontend)
+const bodyParser = require("body-parser");
 const cors = require("cors");
+const db = require("./db"); // usamos CommonJS aquí
 
-// Módulo para manejar rutas de archivos
-const path = require("path");
+const app = express();
+const PORT = 3000;
 
-const app = express(); // Inicializa la app de Express
-
-// Middleware para permitir peticiones externas (CORS)
+// Middleware
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname)); // sirve HTML, CSS y JS
 
-// Middleware para leer JSON enviado por el cliente
-app.use(express.json());
+// ---------------------------------------------
+// REGISTRO DE USUARIO
+// ---------------------------------------------
+app.post("/api/register", (req, res) => {
+  const { nombre, correo, telefono, contrasena, rol } = req.body;
 
-// Servir archivos estáticos desde la carpeta "public"
-app.use(express.static("public"));
+  const query = `
+    INSERT INTO usuarios (nombre, correo, telefono, contrasena, rol)
+    VALUES (?, ?, ?, ?, ?)
+  `;
 
-
-// =======================================================
-//              CONFIGURACIÓN CONEXIÓN A MySQL
-// =======================================================
-
-// Se crea un pool de conexiones para manejar múltiples peticiones
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "admin",
-  database: "db_soccerzone"
+  db.query(query, [nombre, correo, telefono, contrasena, rol], (err, result) => {
+    if (err) {
+      console.error("Error al registrar usuario:", err);
+      return res.status(500).json({ message: "Error en el registro" });
+    }
+    res.json({ message: "Usuario registrado correctamente" });
+  });
 });
 
-// =======================================================                  
-//                     login
-// =======================================================
-
-
+// ---------------------------------------------
+// LOGIN DE USUARIO
+// ---------------------------------------------
 app.post("/api/login", (req, res) => {
-  const { correo, contrasena } = req.body; // Datos enviados por el frontend
+  const { correo, contrasena } = req.body;
 
-  // Consulta SQL para validar usuario
   const query = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";
 
-  // Ejecuta consulta SQL
   db.query(query, [correo, contrasena], (err, results) => {
     if (err) {
       console.error("Error al iniciar sesión:", err);
       return res.status(500).json({ message: "Error interno" });
     }
 
-    // Si no encuentra usuario
     if (results.length === 0) {
       return res.status(401).json({ message: "Correo o contraseña incorrectos" });
     }
 
     const usuario = results[0];
-
-    // Respuesta enviada al frontend
     res.json({
       message: "Inicio de sesión exitoso",
-      id_usuario: usuario.id_usuario,
       rol: usuario.rol,
-      nombre: usuario.nombre
+      nombre: usuario.nombre,
     });
   });
 });
@@ -158,15 +149,10 @@ app.post("/api/reservas", (req, res) => {
 
 
 
-
-
-// =======================================================
-//                INICIAR SERVIDOR
-// =======================================================
-
-const PORT = 3000;
-
-// Inicia el servidor en http://localhost:3000
+// Iniciar servidor
 app.listen(PORT, () => {
-  console.log("Servidor corriendo en http://localhost:" + PORT);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+
+

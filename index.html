@@ -551,6 +551,50 @@ function consultarDisponibilidad() {
 
     </section>
 
+    <script>
+      document.getElementById("btnBuscarReserva").addEventListener("click", buscarReservas);
+
+      function buscarReservas() {
+        const texto = document.getElementById("busquedaReservas").value.trim();
+        const cont = document.getElementById("resultadoReservas");
+
+        cont.innerHTML = "";
+
+        if (!texto) {
+          cont.innerHTML = `<div class="alert alert-warning">Ingrese un nombre o teléfono</div>`;
+          return;
+        }
+
+        fetch(`/api/buscar-reservas?q=${encodeURIComponent(texto)}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.length === 0) {
+              cont.innerHTML = `<div class="alert alert-info">No se encontraron reservas</div>`;
+              return;
+            }
+
+            data.forEach(r => {
+              cont.innerHTML += `
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">${r.cancha}</h5>
+                  <p class="mb-1"><b>Nombre:</b> ${r.nombre}</p>
+                  <p class="mb-1"><b>Teléfono:</b> ${r.telefono}</p>
+                  <p class="mb-1"><b>Fecha:</b> ${r.fecha}</p>
+                  <p class="mb-0"><b>Hora:</b> ${r.hora_inicio}</p>
+                </div>
+              </div>
+            `;
+            });
+          })
+          .catch(err => {
+            console.error(err);
+            cont.innerHTML = `<div class="alert alert-danger">Error consultando reservas</div>`;
+          });
+      }
+    </script>
+
+
 
 
     <!-- Contact Section -->

@@ -158,16 +158,21 @@ app.get("/api/disponibilidad", (req, res) => {
   const horaFormateada = hora.length === 5 ? `${hora}:00` : hora;
 
   const sql = `
-    SELECT id_cancha, id_usuario, hora_inicio, hora_fin
-    FROM reservas
-    WHERE fecha = ?
-    AND ? BETWEEN hora_inicio AND hora_fin
+    SELECT 
+      r.id_cancha,
+      r.hora_inicio,
+      r.hora_fin,
+      u.nombre AS nombre_usuario
+    FROM reservas r
+    JOIN usuarios u ON r.id_usuario = u.id_usuario
+    WHERE r.fecha = ?
+    AND ? BETWEEN r.hora_inicio AND r.hora_fin
   `;
 
   db.query(sql, [fecha, horaFormateada], (err, reservas) => {
     if (err) {
       console.error("ERROR SQL:", err);
-      return res.status(500).json({ error: true, message: "Error consultando disponibilidad" });
+      return res.status(500).json({ message: "Error consultando disponibilidad" });
     }
 
     const canchas = [
@@ -183,7 +188,7 @@ app.get("/api/disponibilidad", (req, res) => {
         cancha: c.nombre,
         disponible: !ocupada,
         ...(ocupada && {
-          usuario: `Usuario #${ocupada.id_usuario}`,
+          usuario: ocupada.nombre_usuario,
           hora_inicio: ocupada.hora_inicio,
           hora_fin: ocupada.hora_fin
         })
@@ -193,6 +198,7 @@ app.get("/api/disponibilidad", (req, res) => {
     res.json(resultado);
   });
 });
+
 
 // ---------------------------------------------
 // BUSCAR RESERVAS POR NOMBRE O TELÉFONO

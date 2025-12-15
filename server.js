@@ -155,19 +155,19 @@ app.post("/api/reservas", (req, res) => {
 app.get("/api/disponibilidad", (req, res) => {
   const { fecha, hora } = req.query;
 
+  const horaFormateada = hora.length === 5 ? `${hora}:00` : hora;
+
   const sql = `
     SELECT id_cancha, id_usuario, hora_inicio, hora_fin
     FROM reservas
     WHERE fecha = ?
-    AND hora_inicio = ?
+    AND ? BETWEEN hora_inicio AND hora_fin
   `;
-
-  const horaFormateada = hora.length === 5 ? `${hora}:00` : hora;
 
   db.query(sql, [fecha, horaFormateada], (err, reservas) => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Error consultando disponibilidad" });
+      console.error("ERROR SQL:", err);
+      return res.status(500).json({ error: true, message: "Error consultando disponibilidad" });
     }
 
     const canchas = [
@@ -197,44 +197,41 @@ app.get("/api/disponibilidad", (req, res) => {
 // ---------------------------------------------
 // BUSCAR RESERVAS POR NOMBRE O TELÉFONO
 // ---------------------------------------------
+
 app.get("/api/buscar-reservas", (req, res) => {
   const { q } = req.query;
 
   if (!q) {
-    return res.status(400).json({ message: "Parámetro de búsqueda requerido" });
+    return res.status(400).json([]);
   }
 
   const sql = `
-    SELECT
+    SELECT 
       r.id_reserva,
-      u.nombre,
-      u.telefono,
       r.fecha,
       r.hora_inicio,
-      r.hora_fin,
-      r.estado,
-      r.metodo_pago,
-      c.nombre AS cancha
+      c.nombre_cancha AS cancha,
+      u.nombre,
+      u.telefono
     FROM reservas r
-    JOIN usuarios u ON r.id_usuario = u.id_usuario
-    JOIN canchas c ON r.id_cancha = c.id_cancha
+    INNER JOIN usuarios u ON r.id_usuario = u.id_usuario
+    INNER JOIN canchas c ON r.id_cancha = c.id_cancha
     WHERE u.nombre LIKE ?
        OR u.telefono LIKE ?
-    ORDER BY r.fecha DESC, r.hora_inicio DESC
+    ORDER BY r.fecha DESC
   `;
 
-  const search = `%${q}%`;
+  const param = `%${q}%`;
 
-  db.query(sql, [search, search], (err, results) => {
+  db.query(sql, [param, param], (err, rows) => {
     if (err) {
-      console.error("Error buscando reservas:", err);
-      return res.status(500).json({ message: "Error buscando reservas" });
+      console.error("ERROR BUSCAR RESERVAS:", err);
+      return res.status(500).json([]);
     }
 
-    res.json(results);
+    res.json(rows); //  devuelve un ARRAY
   });
 });
-
 
 
 // Iniciar servidor

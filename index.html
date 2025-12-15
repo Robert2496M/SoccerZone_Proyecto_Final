@@ -447,58 +447,78 @@
       <div class="container section-title" data-aos="fade-up">
         <h2>Disponibilidad de Canchas</h2>
         <p><span>Consulta</span> <span class="description-title">Horarios Disponibles</span></p>
-      </div>
-
-      <div class="container">
-
-        <div class="mb-3">
-          <label class="form-label">Selecciona la fecha:</label>
-          <input type="date" id="fecha" class="form-control" />
         </div>
-
-        <button class="btn btn-primary mb-4" onclick="consultarDisponibilidad()">Consultar Disponibilidad</button>
-
-        <div id="resultado" class="row"></div>
-
-      </div>
-
-    </section>
+        
+        <div class="container">
+        
+          <div class="mb-3">
+            <label>Fecha</label>
+            <input type="date" id="fecha" class="form-control">
+          </div>
+        
+          <div class="mb-3">
+            <label>Hora</label>
+            <input type="time" id="hora" class="form-control">
+          </div>
+        
+          <button class="btn btn-primary mb-4" onclick="consultarDisponibilidad()">
+            Consultar Disponibilidad
+          </button>
+        
+          <div id="resultado" class="row"></div>
+        
+        
+        </div>
+        
+        </section>
 
     <script>
-      function consultarDisponibilidad() {
-        const fecha = document.getElementById("fecha").value;
+function consultarDisponibilidad() {
+  const fecha = document.getElementById("fecha").value;
+  const hora = document.getElementById("hora").value;
 
-        fetch("/api/disponibilidad?fecha=" + fecha)
-          .then(res => res.json())
-          .then(data => {
-            console.log("Respuesta API:", data);
+  if (!fecha || !hora) {
+    alert("Seleccione fecha y hora");
+    return;
+  }
 
-            const cont = document.getElementById("resultado");
-            cont.innerHTML = "";
+  fetch(`/api/disponibilidad?fecha=${fecha}&hora=${hora}`)
+    .then(res => res.json())
+    .then(data => {
+      const cont = document.getElementById("resultado");
+      cont.innerHTML = "";
 
-            data.forEach(c => {
-              cont.innerHTML += `
-                    <div class="col-md-4">
-                        <div class="card mb-3 ${c.disponible ? 'border-success' : 'border-danger'}">
-                            <div class="card-body">
-                                <h5 class="card-title">${c.nombre}</h5>
-                                <p><b>Ubicación:</b> ${c.ubicacion}</p>
-                                <p><b>Precio/hora:</b> ₡${c.precio_hora}</p>
-                                <span class="badge ${c.disponible ? 'bg-success' : 'bg-danger'}">
-                                    ${c.disponible ? 'Disponible' : 'Ocupada'}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-          })
-          .catch(err => {
-            console.error("Error consultando la API", err);
-            alert("Error consultando la API");
-          });
-      }
-    </script>
+      data.forEach(c => {
+        cont.innerHTML += `
+          <div class="col-md-4">
+            <div class="card mb-3 ${c.disponible ? 'border-success' : 'border-danger'}">
+              <div class="card-body">
+                <h5>${c.cancha}</h5>
+
+                ${
+                  c.disponible
+                    ? `<span class="badge bg-success">Disponible</span>`
+                    : `
+                      <span class="badge bg-danger">Ocupada</span>
+                      <p class="mt-2 mb-0">
+                        <b>Reservada por:</b> ${c.usuario}<br>
+                        <b>Horario:</b> ${c.hora_inicio} - ${c.hora_fin}
+                      </p>
+                    `
+                }
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error consultando disponibilidad");
+    });
+}
+</script>
+
 
     <!-- buscar-Reservas Section -->
     <section id="buscar-reservas" class="Seccion reservas-section">

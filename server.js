@@ -148,6 +148,59 @@ app.post("/api/reservas", (req, res) => {
   });
 });
 
+// ---------------------------------------------
+// MOSTRAR DISPONIBILIDAD DE CANCHAS
+// ---------------------------------------------
+
+app.get("/api/disponibilidad", (req, res) => {
+  const { fecha, hora } = req.query;
+
+  if (!fecha || !hora) {
+    return res.status(400).json({ message: "Fecha y hora son requeridas" });
+  }
+
+  const sql = `
+    SELECT id_cancha, hora_inicio, hora_fin, id_usuario
+    FROM reservas
+    WHERE fecha = ?
+      AND ? BETWEEN hora_inicio AND hora_fin
+  `;
+
+  db.query(sql, [fecha, hora], (err, reservas) => {
+    if (err) {
+      console.error("ERROR SQL:", err);
+      return res.status(500).json({ message: "Error consultando disponibilidad" });
+    }
+
+    const canchas = [
+      { id: 1, nombre: "Cancha Central" },
+      { id: 2, nombre: "Cancha Norte" },
+      { id: 3, nombre: "Cancha Sur" }
+    ];
+
+    const resultado = canchas.map(c => {
+      const ocupada = reservas.find(r => r.id_cancha === c.id);
+
+      if (ocupada) {
+        return {
+          cancha: c.nombre,
+          disponible: false,
+          usuario: `Usuario #${ocupada.id_usuario}`,
+          hora_inicio: ocupada.hora_inicio,
+          hora_fin: ocupada.hora_fin
+        };
+      }
+
+      return {
+        cancha: c.nombre,
+        disponible: true
+      };
+    });
+
+    res.json(resultado);
+  });
+});
+
 
 
 // Iniciar servidor
